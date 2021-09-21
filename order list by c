@@ -1,0 +1,121 @@
+//
+//  main.c
+//  顺序表实现
+//
+//  Created by 丘** on 2021/7/22.
+//
+
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct
+{
+    int length;
+    int a[100];
+    
+    
+    
+}SqList;
+void InitList(SqList*p)//初始化
+{
+    for(int i=0;i<50;i++)
+    {p->a[i]=i+1;
+    }
+    p->length=50;
+    
+    
+}
+void GetElem(SqList s,int i)//取值
+{
+    if(i<1||i>s.length)
+        return;
+    int e=s.a[i-1];
+    printf("%d是你要取的元素\n",e);
+    
+    
+}
+int LocateElem(SqList s,int e)//查找元素位置
+{
+    for(int i=0;i<s.length;i++)
+    {
+        if(s.a[i]==e)
+            
+            return (i+1);
+        
+        
+    }
+    
+    return 0;
+}
+void ListInsert(SqList*p,int i,int e)//数组中的序号比人类的序号-1
+{                     //在第i个位置插入元素e
+    if(i<1||i>p->length+1)
+    {
+     
+        printf("sorry");
+        return;
+    }
+    if(p->length==100)
+    {
+        printf("it is full\n");
+        return;
+        
+    }
+    
+    for(int j=p->length-1;j>=i-1;j--)
+    {  //插入元素要从最后一个开始往后移
+        p->a[j+1]=p->a[j];
+        p->a[i-1]=e;
+        
+       
+    }
+    p->length++;//之前错在了把表长加1也放进了循环
+    
+}
+
+void ListDelete(SqList* p,int i)//删除元素位置
+{
+    if(i<1||i>p->length)
+    {
+        printf("the serial number is unlaw\n");
+        return;
+    }
+    for(int j=i;j<=p->length-1;j++)//删除元素要从被删元素的后一个开始往前移
+    {
+        p->a[j-1]=p->a[j];
+        p->length--;
+    
+    }
+}
+
+int main(int argc, const char * argv[])
+{
+    
+    printf("Hello, World!\n");
+    SqList s ;
+    InitList(&s);
+    
+    int e;
+    for(int i=1;i<6;i++)
+   {
+   printf("你想在下面在第%d个位置插入什么数字：\n",i);
+        scanf(" %d",&e);
+        ListInsert(&s,i,e);
+        
+        
+    
+    
+    }
+    int i;
+    printf("你想查找哪个位置的元素？\n");
+    scanf("%d",&i);
+    GetElem( s, i);
+    printf("你想要找哪个元素的位置\n");
+    scanf("%d",&e);
+   int g= LocateElem( s, e);
+    printf("%d是你要找的位置\n",g);
+    printf("你想删哪个位置的元素？\n");
+    scanf("%d",&i);
+    ListDelete(&s, i);
+    
+    return 0;
+}
